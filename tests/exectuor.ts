@@ -1,7 +1,7 @@
-import { createYoga } from 'graphql-yoga';
 import { buildHTTPExecutor } from '@graphql-tools/executor-http';
-import { genSchema } from '../src/schema';
+import { createYoga } from 'graphql-yoga';
 import plugins from '../src/envelop/index';
+import { genSchema } from '../src/schema';
 
 console.profile = jest.fn();
 const schema = genSchema();

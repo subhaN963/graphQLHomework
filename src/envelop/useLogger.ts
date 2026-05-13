@@ -1,14 +1,15 @@
 import type { Plugin } from '@envelop/core';
-import uuid from 'uuid';
 import { Logger } from '../logger';
 import { ContextType } from '../types';
 
 export const useLogger = (): Plugin<ContextType> => {
   return {
-    onParse({ context, extendContext }) {
+    onExecute({ args, extendContext }) {
+      const context = args.contextValue as ContextType;
       const logger = new Logger();
       logger.setRequestId(context.requestId);
-      extendContext({ logger: logger });
+      logger.setClient(context.client);
+      extendContext({ logger });
     },
   };
 };
