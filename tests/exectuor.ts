@@ -11,3 +11,10 @@ const yoga = createYoga({ schema, plugins });
 export const executor = buildHTTPExecutor({
   fetch: yoga.fetch,
 });
+
+export const executorWithHeaders = (headers: Record<string, string>) => {
+  return buildHTTPExecutor({
+    fetch: yoga.fetch,
+    headers,
+  });
+}

@@ -1,62 +1,33 @@
 import { parse } from 'graphql';
-import { executor } from '../exectuor';
+import { executorWithHeaders } from '../exectuor';
+
+const executor = executorWithHeaders({ client: 'test-client' });
 
 describe('getAddress', () => {
   test('Success', async () => {
     const query = `
-            query GetAddress($username: String!) {
-                address(username: $username) {
-                    street
-                    city
-                    zipcode
-                }
-            }
-        `;
-
-    const variables = { username: 'jack' };
-
-    const result = await executor({
-      document: parse(query),
-      variables,
-    });
-
-    expect(result).toEqual({
-      "data": {
-        "address": {
-          street: '123 Street St.',
-          city: 'Sometown',
-          zipcode: '43215',
-        }
+      query GetAddress($username: String!) {
+        address(username: $username) { street city state zipcode }
       }
+    `;
+    const result: any = await executor({ document: parse(query), variables: { username: 'jack' } });
+
+    expect(result.data.address).toEqual({
+      street: '123 Street St.',
+      city: 'Sometown',
+      state: 'OH',
+      zipcode: '43215',
     });
+    expect(result.metadata.requestId).toBeDefined();
   });
 
-  test('Error', async () => {
+  test('Error - user not found', async () => {
     const query = `
-            query GetAddress($username: String!) {
-                address(username: $username) {
-                    street
-                    city
-                    zipcode
-                }
-            }
-        `;
-
-    const variables = { username: 'john' };
-
-    const result = await executor({
-      document: parse(query),
-      variables,
-    });
-    
-    expect(result).toEqual(
-    expect.objectContaining(
-      {
-        "errors": expect.arrayContaining([expect.objectContaining({
-          "message": "No address found in getAddress resolver"
-        })])
+      query GetAddress($username: String!) {
+        address(username: $username) { street }
       }
-    )
-    );
+    `;
+    const result: any = await executor({ document: parse(query), variables: { username: 'unknown' } });
+    expect(result.errors[0].message).toBe('No address found in getAddress resolver');
   });
 });

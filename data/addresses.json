@@ -16,5 +16,11 @@
     "city": "Portland",
     "zipcode": "97201",
     "state": "OR"
+  },
+  "sai": {
+    "street": "2391 N Park St",
+    "city": "Atlanta",
+    "zipcode": "30004",
+    "state": "GA"
   }
 }
