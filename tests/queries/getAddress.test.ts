@@ -1,5 +1,5 @@
 import { parse } from 'graphql';
-import { executorWithHeaders } from '../exectuor';
+import { executorWithHeaders } from '../executor';
 
 const executor = executorWithHeaders({ client: 'test-client' });
 

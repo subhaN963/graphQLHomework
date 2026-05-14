@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { parse } from 'graphql';
 import * as path from 'path';
-import { executorWithHeaders } from '../exectuor';
+import { executorWithHeaders } from '../executor';
 
 const DATA_PATH = path.resolve(__dirname, '../../data/addresses.json');
 const executor = executorWithHeaders({ client: 'test-client' });

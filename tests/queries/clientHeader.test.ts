@@ -1,5 +1,5 @@
 import { parse } from 'graphql';
-import { executor, executorWithHeaders } from '../exectuor';
+import { executor, executorWithHeaders } from '../executor';
 
 describe('Client header validation', () => {
     const query = `query { address(username: "jack") { street } }`;
