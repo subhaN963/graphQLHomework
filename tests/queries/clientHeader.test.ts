@@ -17,8 +17,15 @@ describe('Client header validation', () => {
 
     test('Rejects mutations for strata client', async () => {
         const strataExec = executorWithHeaders({ client: 'strata' });
-        const mutation = `
-      mutation { createAddress(username: "x", address: { street: "1", city: "c", state: "s", zipcode: "z" }) { street } }
+        const mutation = `mutation {
+                                    createAddress(username: "x", address: {
+                                                                            street: "1",
+                                                                            city: "c",
+                                                                            state: "s",
+                                                                            zipcode: "z"
+                                                                        })
+                                    { street }
+                                    }
     `;
         const result: any = await strataExec({ document: parse(mutation) });
         expect(result.errors[0].message).toBe('Client strata is not allowed to perform mutations');

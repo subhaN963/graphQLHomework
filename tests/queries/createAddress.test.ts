@@ -14,9 +14,9 @@ describe('createAddress', () => {
 
     const mutation = `
     mutation CreateAddress($username: String!, $address: AddressInput!) {
-      createAddress(username: $username, address: $address) { street city state zipcode }
+        createAddress(username: $username, address: $address) { street city state zipcode }
     }
-  `;
+    `;
 
     test('Success - creates new address', async () => {
         const variables = {

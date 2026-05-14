@@ -1,5 +1,3 @@
-// address.ts — replace entire file:
-
 import * as fs from 'fs';
 import { GraphQLError } from 'graphql';
 import * as path from 'path';
